@@ -6,12 +6,15 @@ plugins:
 
 custom:
   tableName: 'todos-${self:provider.stage}'
+  tableName2: 'level-${self:provider.stage}'
+  tableName3: 'group-${self:provider.stage}'
+  tableName4: 'lecture-${self:provider.stage}'
 
 provider:
   name: aws
   runtime: nodejs8.10
   stage: dev
-  region: us-east-1
+  region: ap-southeast-2
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -23,8 +26,14 @@ provider:
         - dynamodb:DeleteItem
       Resource:
         - { "Fn::GetAtt": ["TodosDynamoDBTable", "Arn" ] }
+        - { "Fn::GetAtt": ["LevelDynamoDBTable", "Arn" ] }
+        - { "Fn::GetAtt": ["GroupDynamoDBTable", "Arn" ] }
+        - { "Fn::GetAtt": ["LectureDynamoDBTable", "Arn" ] }
   environment:
     TODOS_TABLE: ${self:custom.tableName}
+    LEVEL_TABLE: ${self:custom.tableName2}
+    GROUP_TABLE: ${self:custom.tableName3}
+    LECTURE_TABLE: ${self:custom.tableName4}
 
 functions:
   todo-app:
@@ -40,13 +49,84 @@ resources:
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: todoId
+            AttributeName: id
             AttributeType: S
         KeySchema:
           -
-            AttributeName: todoId
+            AttributeName: id
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.tableName}
+    LevelDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName2}
+    GroupDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+          -
+            AttributeName: levelSlug
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: levelSlugIndex
+            KeySchema:
+              - AttributeName: levelSlug
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName3}
+    LectureDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+          -
+            AttributeName: groupSlug
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: groupSlugIndex
+            KeySchema:
+              - AttributeName: groupSlug
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName4}
