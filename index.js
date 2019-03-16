@@ -3,118 +3,89 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const AWS = require('aws-sdk');
-const uuid = require('node-uuid');
-
-const { TODOS_TABLE, IS_OFFLINE } = process.env;
-
-const dynamoDb = IS_OFFLINE === 'true' ?
-  new AWS.DynamoDB.DocumentClient({
-    region: 'localhost',
-    endpoint: 'http://localhost:8000',
-  }) :
-  new AWS.DynamoDB.DocumentClient();
+const sqliteDB = require('./sqlite')
 
 app.use(bodyParser.json({ strict: false }));
 
-app.get('/todos', (req, res) => {
-  const params = {
-    TableName: TODOS_TABLE,
-  };
-
-  dynamoDb.scan(params, (error, result) => {
-    if (error) {
-      res.status(400).json({ error: 'Error retrieving Todos'});
-    }
-
-    const { Items: todos } = result;
-
-    res.json({ todos });
-  })
+app.get('/init', async (req, res) => {
+  try {
+    await sqliteDB.init()
+    res.json({ status: 'ok' })
+  } catch (error) {
+    res.json({ error })
+  }
 });
 
-app.get('/todos/:todoId', (req, res) => {
-  const { todoId } = req.params;
+app.get('/ielts-reading-level', async (req, res) => {
+  try {
+    res.json(await sqliteDB.getLevels())
+  } catch (error) {
+    res.json({ error })
+  }
+});
+
+app.get('/ielts-reading-group/:levelSlug', async(req, res) => {
+  try {
+    const { levelSlug } = req.params;
+    res.json(await sqliteDB.getGroupsByLevelSlug(levelSlug));
+  } catch (error) {
+    res.json({ error })
+  }
+});
+
+app.get('/ielts-reading-lecture/:groupSlug', async(req, res) => {
+  try {
+    const { groupSlug } = req.params;
+    res.json(await sqliteDB.getLectureByGroupSlug(groupSlug));
+  } catch (error) {
+    res.json({ error })
+  }
+});
+
+app.post('/ielts-reading-level/bulk', async(req, res) => {
+  try {
+    const { data } = req.body;
+    await sqliteDB.insertBulk('levels', data);
+    res.json({ status: 'ok' })
+  } catch (error) {
+    res.json({ error })
+  }
+});
+
+app.post('/ielts-reading-group/bulk', async(req, res) => {
+  try {
+    const { data } = req.body;
+    await sqliteDB.insertBulk('groups', data);
+    res.json({ status: 'ok' })
+  } catch (error) {
+    res.json({ error })
+  }
+});
+
+app.post('/ielts-reading-lecture/bulk', async(req, res) => {
+  try {
+    const { data } = req.body;
+    await sqliteDB.insertBulk('lectures', data);
+    res.json({ status: 'ok' })
+  } catch (error) {
+    res.json({ error })
+  }
+});
+
+app.delete('/level/:id', (req, res) => {
+  const { id } = req.params;
 
   const params = {
-    TableName: TODOS_TABLE,
+    TableName: LEVEL_TABLE,
     Key: {
-      todoId,
-    },
-  };
-
-  dynamoDb.get(params, (error, result) => {
-    if (error) {
-      res.status(400).json({ error: 'Error retrieving Todo' });
-    }
-
-    if (result.Item) {
-      const { todoId , title, done } = result.Item;
-      res.json({ todoId, title, done });
-    } else {
-      res.status(404).json({ error: `Todo with id: ${todoId} not found` });
-    }
-  });
-});
-
-app.post('/todos', (req, res) => {
-  const { title, done = false} = req.body;
-
-  const todoId = uuid.v4();
-
-  const params = {
-    TableName: TODOS_TABLE,
-    Item: {
-      todoId,
-      title,
-      done,
-    },
-  };
-
-  dynamoDb.put(params, (error) => {
-    if (error) {
-      console.log('Error creating Todo: ', error);
-      res.status(400).json({ error: 'Could not create Todo' });
-    }
-
-    res.json({ todoId, title, done });
-  });
-});
-
-app.put('/todos', (req, res) => {
-  const { todoId, title, done } = req.body;
-
-  var params = {
-    TableName : TODOS_TABLE,
-    Key: { todoId },
-    UpdateExpression : 'set #a = :title, #b = :done',
-    ExpressionAttributeNames: { '#a' : 'title', '#b': 'done' },
-    ExpressionAttributeValues : { ':title' : title, ':done': done },
-  };
-
-  dynamoDb.update(params, (error) => {
-    if (error) {
-      console.log(`Error updating Todo with id ${todoId}: `, error);
-      res.status(400).json({ error: 'Could not update Todo' });
-    }
-
-    res.json({ todoId, title, done });
-  })
-});
-
-app.delete('/todos/:todoId', (req, res) => {
-  const { todoId } = req.params;
-
-  const params = {
-    TableName: TODOS_TABLE,
-    Key: {
-      todoId,
+      id,
     },
   };
 
   dynamoDb.delete(params, (error) => {
     if (error) {
-      console.log(`Error updating Todo with id ${todoId}`, error);
-      res.status(400).json({ error: 'Could not delete Todo' });
+      console.log(`Error updating Level with id ${id}`, error);
+      res.status(400).json({ error: 'Could not delete Level' });
     }
 
     res.json({ success: true });

@@ -1,0 +1,368 @@
+{
+	"info": {
+		"_postman_id": "2911480e-d16b-4d8c-a1ab-7ccf1ca7f46a",
+		"name": "IELTS_PROJECT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "bulk add lectures",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Version",
+						"value": "{{version}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "AppName",
+						"value": " {{app_name}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Token",
+						"value": " {{token}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "DeviceType",
+						"value": " {{device_type}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": " gzip, deflate, br",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Language",
+						"value": " en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,vi;q=0.6",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-SOURCE-HOST",
+						"value": "{{x_source_host}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": [\n\t{\n    \"slug\" : \"level1-group1-lecture1\",\n    \"groupSlug\" : \"level1-group1\",\n    \"levelSlug\" : \"level1\",\n    \"title\" : \"Going to the Zoo\",\n    \"details\" : \"Simple present tense, 50 words per passage for children to start reading\",\n    \"photoUrl\" : \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png\",\n    \"audioUrl\" : \"https://www.eslfast.com/kidsenglish/audio/ke001c3.mp3\",\n    \"type\" : \"reading\",\n    \"transcript\" : \"She goes to the zoo. She sees a lion. The lion roars. She sees an elephant. The elephant has a long trunk. She sees a turtle. The turtle is slow. She sees a rabbit. The rabbit has soft fur. She sees a gorilla. The gorilla is eating a banana.\"\n  },\n  {\n    \"slug\": \"level1-group1-lecture13\",\n    \"groupSlug\": \"level1-group1\",\n    \"levelSlug\": \"level1\",\n    \"title\": \"Christmas Time\",\n    \"details\": \"Simple present tense, 50 words per passage for children to start reading\",\n    \"photoUrl\": \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png\",\n    \"audioUrl\": \"https://www.eslfast.com/kidsenglish/audio/ke002op.mp3\",\n    \"type\": \"reading\",\n    \"transcript\": \"It is Christmas. Dad gives Tim a toy. The toy is in the box. Tim takes off the lid. He sees the toy. It is a car. The car is red. The car makes noises. The car moves fast. Tim likes the gift. He hugs his dad. Dad smiles.\"\n  },\n  {\n    \"slug\": \"level1-group1-lecture14\",\n    \"groupSlug\": \"level1-group1\",\n    \"levelSlug\": \"level1\",\n    \"title\": \"She Goes to the Nurse\",\n    \"details\": \"Simple present tense, 50 words per passage for children to start reading\",\n    \"photoUrl\": \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png\",\n    \"audioUrl\": \"https://www.eslfast.com/kidsenglish/audio/ke003yr2.mp3\",\n    \"type\": \"reading\",\n    \"transcript\": \"She goes out to play. She runs around. She falls down. It hurts. She cries. She gets up. She goes to the nurse. The nurse is nice. She looks friendly. The nurse gives her a lollipop. It tastes good. The nurse gives her a bandage. She is okay now. She walks back to class.\"\n  },\n  {\n    \"slug\": \"level1-group1-lecture15\",\n    \"groupSlug\": \"level1-group1\",\n    \"levelSlug\": \"level1\",\n    \"title\": \"Waiting\",\n    \"details\": \"Simple present tense, 50 words per passage for children to start reading\",\n    \"photoUrl\": \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png\",\n    \"audioUrl\": \"https://www.eslfast.com/kidsenglish/audio/ke004.mp3\",\n    \"type\": \"reading\",\n    \"transcript\": \"The kids are in class. The teacher is teaching math. The kids are tired. They want to play. They want to see the sun. They like slides. They also like swings. They don't like math. They stare at the clock. The clock moves slowly. The kids continue to wait.\"\n  }\n  \n]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/ielts-reading-lecture/bulk",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ielts-reading-lecture",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulk add ielts group",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Version",
+						"value": "{{version}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "AppName",
+						"value": " {{app_name}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Token",
+						"value": " {{token}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "DeviceType",
+						"value": " {{device_type}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": " gzip, deflate, br",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Language",
+						"value": " en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,vi;q=0.6",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-SOURCE-HOST",
+						"value": "{{x_source_host}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": [\n      {\n        \"slug\": \"level1-group1\",\n        \"levelSlug\": \"level1\",\n        \"name\": \"Start for children 1\",\n        \"description\": \"Simple present tense, 50 words per passage for children to start reading\"\n      },\n      {\n        \"slug\": \"level1-group2\",\n        \"levelSlug\": \"level1\",\n        \"name\": \"Start for children 2\",\n        \"description\": \"Simple present tense, 50 words per passage for children to start reading\"\n      },\n      {\n        \"slug\": \"level1-group3\",\n        \"levelSlug\": \"level1\",\n        \"name\": \"Start for children 3\",\n        \"description\": \"Simple present tense, 50 words per passage for children to start reading\"\n      },\n      {\n        \"slug\": \"level1-group4\",\n        \"levelSlug\": \"level1\",\n        \"name\": \"Speak English Fast\",\n        \"description\": \"500 conversations on 26 topics with audio for you to practice speaking\"\n      },\n      {\n        \"slug\": \"level1-group5\",\n        \"levelSlug\": \"level1\",\n        \"name\": \"English Conversations\",\n        \"description\": \"More than 1,500 conversations on 25 topics + audio\"\n      },\n      {\n        \"slug\": \"level1-group6\",\n        \"levelSlug\": \"level1\",\n        \"name\": \"English for New USA Immigrants \",\n        \"description\": \"What new immigrants need to know in the United States\"\n      }\n]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/ielts-reading-group/bulk",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ielts-reading-group",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulk add level",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Version",
+						"type": "text",
+						"value": "{{version}}",
+						"disabled": true
+					},
+					{
+						"key": "AppName",
+						"type": "text",
+						"value": " {{app_name}}",
+						"disabled": true
+					},
+					{
+						"key": "Token",
+						"type": "text",
+						"value": " {{token}}",
+						"disabled": true
+					},
+					{
+						"key": "DeviceType",
+						"type": "text",
+						"value": " {{device_type}}",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Encoding",
+						"type": "text",
+						"value": " gzip, deflate, br",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": " en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,vi;q=0.6",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-SOURCE-HOST",
+						"type": "text",
+						"value": "{{x_source_host}}",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": [\n  {\n    \"slug\": \"level1\",\n    \"name\": \"Children\",\n    \"description\": \"For Children\",\n    \"level\": \"beginner\"\n  },\n  {\n    \"slug\": \"level2\",\n    \"name\": \"Beginner\",\n    \"description\": \"For Beginners\",\n    \"level\": \"beginner\"\n  },\n  {\n    \"slug\": \"level3\",\n    \"name\": \"Intermediate\",\n    \"description\": \"For Intermediate Learners\",\n    \"level\": \"Intermediate\"\n  }\n]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/ielts-reading-level/bulk",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ielts-reading-level",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get level",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/ielts-reading-level",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ielts-reading-level"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get group",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/ielts-reading-group/level1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ielts-reading-group",
+						"level1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get lecture",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/ielts-reading-lecture/level1-group2?conten",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ielts-reading-lecture",
+						"level1-group2"
+					],
+					"query": [
+						{
+							"key": "conten",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "init create db",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/ielts-reading-level",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ielts-reading-level"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
